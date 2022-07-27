@@ -19,14 +19,43 @@ class LoginActivity : AppCompatActivity() {
 
         //Check if there is a user logged in
         //If there is, take them back to the main activity
-        if(ParseUser.getCurrentUser() != null)
+
+     /*   if(ParseUser.getCurrentUser() != null)
         {
             gotoMainActivity()
-        }
+        } */
+
         findViewById<Button>(R.id.login_button).setOnClickListener{
             val username = findViewById<EditText>(R.id.et_username).text.toString()
             val password = findViewById<EditText>(R.id.et_password).text.toString()
             loginUser(username,password)
+        }
+
+        findViewById<Button>(R.id.signupBtn).setOnClickListener{
+            val username = findViewById<EditText>(R.id.et_username).text.toString()
+            val password = findViewById<EditText>(R.id.et_password).text.toString()
+            signUpUser(username,password)
+        }
+
+
+    }
+
+    private fun signUpUser(username: String, password: String){
+        // Create the ParseUser
+        val user = ParseUser()
+
+        // Set fields for the user to be created
+        user.setUsername(username)
+        user.setPassword(password)
+
+        user.signUpInBackground { e ->
+            if (e == null) {
+                // Hooray! Let them use the app now.
+            } else {
+                // Sign up didn't succeed. Look at the ParseException
+                // to figure out what went wrong
+                e.printStackTrace()
+            }
         }
     }
 
