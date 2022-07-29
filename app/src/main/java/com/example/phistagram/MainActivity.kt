@@ -1,6 +1,7 @@
 package com.example.phistagram
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,8 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.parse.*
 import java.io.File
@@ -38,24 +41,35 @@ class MainActivity : AppCompatActivity() {
             // Get description from user input in description box
             val description = findViewById<EditText>(R.id.description).text.toString()
             val user = ParseUser.getCurrentUser()
-            submitPost(description, user)
+            if (photoFile != null){
+                submitPost(description,user, photoFile!!)
+            }else{
+
+            }
         }
 
         findViewById<Button>(R.id.btnTakePicture).setOnClickListener{
             // Launch camera app to let user take picture
-
+            onLaunchCamera()
         }
+
+        // 1. Setting the description of the post
+        // 2. A button to launch the camera to take the picture
+        // 3. The image view to show the picture that user has taken
+        // 4. A button to save and send the post to our parse sever
+
 
         queryPosts()
 
     }
 
     // Send user post to our parse sever
-    fun submitPost(description: String, user: ParseUser){
+    fun submitPost(description: String, user: ParseUser, file: File){
         // Create the post object
         val post = Post()
         post.setDescription(description)
         post.setUser(user)
+        post.setImage(ParseFile(file))
         post.saveInBackground { exception ->
             if (exception != null) {
                 // Something has gone wrong
@@ -94,7 +108,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if ( requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
+            if( resultCode == RESULT_OK){
+                // By this time, we have the photo file on disk
+                val takenImage = BitmapFactory.decodeFile(photoFile!!.absolutePath)
 
+                // Load the taken image to the preview
+                val ivPreview: ImageView = findViewById(R.id.imageView)
+                ivPreview.setImageBitmap(takenImage)
+            }else{
+                Toast.makeText(this, "Image was not taken!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     // Returns the File for a photo stored on disk given the fileName
     fun getPhotoFileUri(fileName: String): File {
