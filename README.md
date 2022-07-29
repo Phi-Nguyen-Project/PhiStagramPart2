@@ -1,9 +1,8 @@
-# PhiStagram
-# Project 3 - *Name of App Here*
+# Project 3 - *phiStagram*
 
-**Name of your app** is a photo sharing app similar to Instagram but using Parse as its backend.
+**phiStagram** is a photo sharing app similar to Instagram but using Parse as its backend.
 
-Time spent: **X** hours spent in total
+Time spent: **4** hours spent in total
 
 ## User Stories
 
@@ -32,9 +31,6 @@ Here's a walkthrough of implemented user stories:
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
-## Notes
-
-Describe any challenges encountered while building the app.
 
 ## Open-source libraries used
 
