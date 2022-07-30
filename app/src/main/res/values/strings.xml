@@ -6,5 +6,7 @@
     <!-- Paste BOTH strings as required -->
     <string name="back4app_app_id">SrStH9dOjlZc0EyLUS8frUQOwqU9uceyZU8hfdHt</string>
     <string name="back4app_client_key">ngsaCPmP1Y5ODn5F4DhggYNcdFNH1p2iKuhyTfE5</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

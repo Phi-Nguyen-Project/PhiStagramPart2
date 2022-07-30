@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.parse.*
 import java.io.File
 import java.lang.Exception
@@ -53,12 +54,32 @@ class MainActivity : AppCompatActivity() {
             onLaunchCamera()
         }
 
-        // 1. Setting the description of the post
-        // 2. A button to launch the camera to take the picture
-        // 3. The image view to show the picture that user has taken
-        // 4. A button to save and send the post to our parse sever
+        findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener {
+            item ->
 
+            when (item.itemId){
+                R.id.action_home -> {
+                    // Navigate to the home screen
 
+                    Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+                }
+                R.id.action_compose -> {
+                    // Navigate to the compose screen
+
+                    Toast.makeText(this, "Compose", Toast.LENGTH_SHORT).show()
+                }
+                R.id.action_profile -> {
+                    // Navigate to the profile screen
+
+                    Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            // Return boolean true
+            true
+        }
+
+        // Query posts
         queryPosts()
 
     }
